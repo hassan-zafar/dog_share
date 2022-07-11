@@ -11,7 +11,8 @@ class AllUsers with ChangeNotifier {
 
   Future<void> fetchProducts() async {
     print('Fetch method is called');
-    await petsDataRef
+    //TODO: change it to pet data ref
+    await userRef
         .get()
         .then((QuerySnapshot userSnapshot) {
       _allPets = [];

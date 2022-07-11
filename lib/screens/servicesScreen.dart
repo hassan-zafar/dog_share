@@ -40,7 +40,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
       context,
     );
 
-
     return SafeArea(
       child: Scaffold(
         drawer: const CustomDrawer(),
@@ -121,14 +120,21 @@ class _ServicesScreenState extends State<ServicesScreen> {
                     ],
                   ),
                 )
-              : ListView.builder(
+              : GridView.builder(
                   itemCount: allUsersProvider.allUsers.length,
                   itemBuilder: (context, index) {
                     return ChangeNotifierProvider<AllUsers>.value(
                       value: allUsersProvider,
-                      child: ServiceCardWidget(user: allUsersProvider.allUsers[index]),
+                      child: ServiceCardWidget(
+                          user: allUsersProvider.allUsers[index]),
                     );
-                  }),
+                  },
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 5.0,
+                    mainAxisSpacing: 5.0,
+                  ),
+                ),
         ),
       ),
     );

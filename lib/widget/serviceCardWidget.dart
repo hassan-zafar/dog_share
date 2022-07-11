@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dog_share/inner_screens/service_details.dart';
-import 'package:dog_share/models/users.dart';
+import 'package:dog_share/models/petsDataModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dog_share/utilities/custom_images.dart';
@@ -16,7 +16,7 @@ class ServiceCardWidget extends StatefulWidget {
 class _ServiceCardWidgetState extends State<ServiceCardWidget> {
   @override
   Widget build(BuildContext context) {
-    final productsAttributes = Provider.of<AppUserModel>(context);
+    final productsAttributes = Provider.of<PetsDataModel>(context);
     print(productsAttributes);
     return GestureDetector(
       onTap: () {

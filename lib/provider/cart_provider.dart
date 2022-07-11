@@ -17,7 +17,7 @@ class FavouriteProvider with ChangeNotifier {
   }
 
   void addProductToCart(
-      String productId, double price, String title, String imageUrl) {
+      String productId, String title, String imageUrl) {
     if (_cartItems.containsKey(productId)) {
       // removeItem(productId);
       _cartItems.update(
@@ -36,7 +36,7 @@ class FavouriteProvider with ChangeNotifier {
               id: DateTime.now().toString(),
               productId: productId,
               title: title,
-              price: price,
+              // price: price,
               quantity: 1,
               imageUrl: imageUrl));
     }

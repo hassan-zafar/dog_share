@@ -99,7 +99,6 @@ class ServicesTileWidget extends StatelessWidget {
                 onPressed: () {
                   favsProvider.addAndRemoveFromFav(
                       _user.id!,
-                      double.parse(prodAttr.phoneNo!),
                       prodAttr.name!,
                       prodAttr.imageUrl!);
                 },
@@ -115,7 +114,6 @@ class ServicesTileWidget extends StatelessWidget {
                 onPressed: () {
                   cartProvider.addProductToCart(
                       _user.id!,
-                      double.parse(prodAttr.phoneNo!),
                       prodAttr.name!,
                       prodAttr.imageUrl!);
                   Navigator.canPop(context) ? Navigator.pop(context) : null;

@@ -26,8 +26,8 @@ class ServiceDetailsScreen extends StatefulWidget {
 }
 
 class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
-  GlobalKey previewContainer = new GlobalKey();
-  TextEditingController _reviewController = TextEditingController();
+  GlobalKey previewContainer =  GlobalKey();
+  final TextEditingController _reviewController = TextEditingController();
   bool isUploading = false;
   List allReviews = [];
 
@@ -279,7 +279,6 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                               : () {
                                   cartProvider.addProductToCart(
                                       productId,
-                                      double.parse(prodAttr.phoneNo!),
                                       prodAttr.name!,
                                       prodAttr.imageUrl!);
                                 },
@@ -303,7 +302,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       onTap: () {
                         favsProvider.addAndRemoveFromFav(
                             productId,
-                            double.parse(prodAttr.phoneNo!),
+                            // double.parse(prodAttr.phoneNo!),
                             prodAttr.name!,
                             prodAttr.imageUrl!);
                       },

@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkTheme = true;
+    bool isDarkTheme = false;
     return FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
@@ -125,18 +125,15 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               title: 'Dog Share',
               theme: ThemeData(
-                // scaffoldBackgroundColor: Colors.black,
-                primaryColor: Colors.orange,
-                accentColor: Colors.black,
-                brightness: Brightness.dark,
+                scaffoldBackgroundColor: const Color(0xFF61c1bb),
+                primaryColor: Colors.white,
+                // accentColor: Colors.black,
+                brightness: Brightness.light,
                 dividerTheme: const DividerThemeData(
-                    color: Colors.orange, thickness: 0.5),
+                    color: Colors.black, thickness: 0.5),
                 textTheme: const TextTheme(bodyText1: TextStyle(color: Colors.white))
                     .apply(bodyColor: Colors.white, displayColor: Colors.white),
-                colorScheme: const ColorScheme.dark(
-                  primary: Colors.orange,
-                  secondary: Colors.red,
-                ),
+                // colorScheme: const ColorScheme(),
               ),
               home: UserState(),
               routes: {

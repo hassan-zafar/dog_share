@@ -153,7 +153,6 @@ class _CartFullState extends State<CartFull> {
                               child: GestureDetector(
                                 onTap: () => cartProvider.addProductToCart(
                                   widget.productId!,
-                                  cartAttr.price!,
                                   cartAttr.title!,
                                   cartAttr.imageUrl!,
                                 ),
