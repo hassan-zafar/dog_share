@@ -6,6 +6,8 @@ import 'package:dog_share/utilities/utilities.dart';
 import 'package:dog_share/widget/service_tile_widget.dart';
 import 'package:dog_share/widget/tools/empty_iconic_widget.dart';
 
+import '../models/petsDataModel.dart';
+
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();
@@ -29,7 +31,7 @@ class _SearchState extends State<Search> {
     _searchTextController!.dispose();
   }
 
-  List<AppUserModel> _searchList = [];
+  List<PetsDataModel> _searchList = [];
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<AllUsers>(context);

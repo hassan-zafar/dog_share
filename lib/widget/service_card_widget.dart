@@ -12,10 +12,11 @@ import 'package:dog_share/provider/favs_provider.dart';
 import 'package:dog_share/provider/products.dart';
 import '../../../../utilities/custom_images.dart';
 import '../../../../utilities/utilities.dart';
+import '../models/petsDataModel.dart';
 
 class ServiceCardWidget extends StatelessWidget {
   const ServiceCardWidget({required this.user, Key? key}) : super(key: key);
-  final AppUserModel user;
+  final PetsDataModel user;
 
   @override
   Widget build(BuildContext context) {

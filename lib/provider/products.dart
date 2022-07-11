@@ -1,24 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dog_share/models/users.dart';
+import 'package:dog_share/consts/collections.dart';
+import 'package:dog_share/models/petsDataModel.dart';
 import 'package:flutter/cupertino.dart';
 
 class AllUsers with ChangeNotifier {
-  List<AppUserModel> _allUsers = [];
-  List<AppUserModel> get allUsers {
-    return [..._allUsers];
+  List<PetsDataModel> _allPets = [];
+  List<PetsDataModel> get allUsers {
+    return [..._allPets];
   }
 
   Future<void> fetchProducts() async {
     print('Fetch method is called');
-    await FirebaseFirestore.instance
-        .collection('users')
+    await petsDataRef
         .get()
         .then((QuerySnapshot userSnapshot) {
-      _allUsers = [];
+      _allPets = [];
       userSnapshot.docs.forEach((element) {
         // print('element.get(productBrand), ${element.get('productBrand')}');
-        _allUsers.insert(0, AppUserModel.fromDocument(element));
-        AppUserModel(
+        _allPets.insert(0, PetsDataModel.fromDocument(element));
+        PetsDataModel(
           id: element.get("id"),
           password: element.get("password"),
           name: element.get("name"),
@@ -35,16 +35,16 @@ class AllUsers with ChangeNotifier {
     });
   }
 
-  List<AppUserModel> get popularProducts {
-    return _allUsers.where((element) => element.isAdmin!).toList();
+  List<PetsDataModel> get popularProducts {
+    return _allPets.where((element) => element.isAdmin!).toList();
   }
 
-  AppUserModel findById(String productId) {
-    return _allUsers.firstWhere((element) => element.id == productId);
+  PetsDataModel findById(String productId) {
+    return _allPets.firstWhere((element) => element.id == productId);
   }
 
-  List<AppUserModel> findByCategory(String categoryName) {
-    List<AppUserModel> _categoryList = _allUsers
+  List<PetsDataModel> findByCategory(String categoryName) {
+    List<PetsDataModel> _categoryList = _allPets
         .where((element) =>
             element.name!.toLowerCase().contains(categoryName.toLowerCase()))
         .toList();
@@ -59,8 +59,8 @@ class AllUsers with ChangeNotifier {
   //   return _categoryList;
   // }
 
-  List<AppUserModel> searchQuery(String searchText) {
-    List<AppUserModel> _searchList = _allUsers
+  List<PetsDataModel> searchQuery(String searchText) {
+    List<PetsDataModel> _searchList = _allPets
         .where((element) =>
             element.name!.toLowerCase().contains(searchText.toLowerCase()))
         .toList();

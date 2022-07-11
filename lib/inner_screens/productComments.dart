@@ -18,7 +18,7 @@ class ProductComments extends StatefulWidget {
   final bool? isProductComment;
   final String? chatNotificationToken;
 //  final String userName;
-  ProductComments(
+  const ProductComments(
       {this.postId,
       this.postMediaUrl,
       this.isAdmin,
@@ -301,7 +301,7 @@ class ProductCommentsState extends State<ProductComments> {
                 onPressed: widget.isPostComment! || widget.isProductComment!
                     ? addComment
                     : addChatMessage,
-                icon: Icon(
+                icon: const Icon(
                   Icons.send,
                   size: 40.0,
                 ),
@@ -328,7 +328,7 @@ class ProductCommentMessages extends StatefulWidget {
   final int? likes;
   final String? postId;
   final String? androidNotificationToken;
-  ProductCommentMessages({
+   ProductCommentMessages({
     this.userName,
     this.userId,
     this.avatarUrl,

@@ -1,5 +1,4 @@
 import 'package:badges/badges.dart';
-import 'package:dog_share/models/users.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dog_share/cart/cart.dart';
@@ -50,10 +49,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
           elevation: 0,
           title: const Text('Home'),
           centerTitle: true,
-          // leading: IconButton(
-          //   icon: Icon(Icons.dehaze_outlined),
-          //   onPressed: () => Scaffold.of(context).openDrawer(),
-          // ),
           actions: [
             Consumer<FavsProvider>(
               builder: (_, favs, ch) => Badge(
@@ -135,17 +130,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
                     );
                   }),
         ),
-
-        //         StaggeredGridView.countBuilder(
-        //           padding: ,
-        //   crossAxisCount: 6,
-        //   itemCount: 8,
-        //   itemBuilder: (BuildContext context, int index) =>FeedProducts(),
-        //   staggeredTileBuilder: (int index) =>
-        //       new StaggeredTile.count(3, index.isEven ? 4 : 5),
-        //   mainAxisSpacing: 8.0,
-        //   crossAxisSpacing: 6.0,
-        // ),
       ),
     );
   }

@@ -9,13 +9,14 @@ import 'package:dog_share/provider/favs_provider.dart';
 import 'package:dog_share/provider/products.dart';
 import '../../../../utilities/custom_images.dart';
 import '../../../../utilities/utilities.dart';
+import '../models/petsDataModel.dart';
 
 class ServicesTileWidget extends StatelessWidget {
-  const ServicesTileWidget({required AppUserModel user, Key? key})
+  const ServicesTileWidget({required PetsDataModel user, Key? key})
       : _user = user,
         super(key: key);
 
-  final AppUserModel _user;
+  final PetsDataModel _user;
 
   @override
   Widget build(BuildContext context) {
