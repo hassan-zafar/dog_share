@@ -128,6 +128,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                       child: ServiceCardWidget(
                           user: allUsersProvider.allUsers[index]),
                     );
+                    
                   },
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
