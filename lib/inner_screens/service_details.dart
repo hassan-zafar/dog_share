@@ -40,7 +40,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
     final favsProvider = Provider.of<FavsProvider>(context);
     print('productId $productId');
     final prodAttr = productsData.findById(productId);
-    final productsList = productsData.allUsers;
+    final productsList = productsData.allPets;
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -50,7 +50,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             width: double.infinity,
             child: CachedNetworkImage(
               fit: BoxFit.contain,
-              imageUrl: prodAttr.imageUrl!,
+              imageUrl: prodAttr.petImage!,
             ),
           ),
           SingleChildScrollView(
@@ -190,7 +190,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext ctx, int index) {
                       return ChangeNotifierProvider.value(
-                          value: productsData.allUsers[index],
+                          value: productsData.allPets[index],
                           //  productsList[index],
                           child: ServiceCardWidget());
                     },
@@ -280,7 +280,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                                   cartProvider.addProductToCart(
                                       productId,
                                       prodAttr.petName!,
-                                      prodAttr.imageUrl!);
+                                      prodAttr.petImage!);
                                 },
                       child: Text(
                         cartProvider.getCartItems.containsKey(productId)
@@ -304,7 +304,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             productId,
                             // double.parse(prodAttr.phoneNo!),
                             prodAttr.petName!,
-                            prodAttr.imageUrl!);
+                            prodAttr.petImage!);
                       },
                       child: Center(
                         child: Icon(

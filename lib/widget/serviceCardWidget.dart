@@ -34,11 +34,11 @@ class _ServiceCardWidgetState extends State<ServiceCardWidget> {
               SizedBox(
                 height: double.infinity,
                 width: double.infinity,
-                child: (productsAttributes.imageUrl == null ||
-                        productsAttributes.imageUrl!.isEmpty)
+                child: (productsAttributes.petImage == null ||
+                        productsAttributes.petImage!.isEmpty)
                     ? Image.asset(CustomImages.icon, fit: BoxFit.cover)
                     : CachedNetworkImage(
-                        imageUrl: productsAttributes.imageUrl!,
+                        imageUrl: productsAttributes.petImage!,
                         fit: BoxFit.cover),
               ),
               Positioned(
@@ -70,7 +70,7 @@ class _ServiceCardWidgetState extends State<ServiceCardWidget> {
                         ),
                       ),
                       Text(
-                        productsAttributes.joinedAt!,
+                        productsAttributes.petGender!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

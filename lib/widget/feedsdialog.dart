@@ -40,7 +40,7 @@ class FeedDialog extends StatelessWidget {
             ),
             child:  CachedNetworkImage(
                  imageUrl: 
-              prodAttr.imageUrl!,
+              prodAttr.petImage!,
             ),
           ),
           Container(
@@ -56,7 +56,7 @@ class FeedDialog extends StatelessWidget {
                               favsProvider.addAndRemoveFromFav(
                                   productId,
                                   prodAttr.petName!,
-                                  prodAttr.imageUrl!),
+                                  prodAttr.petImage!),
                               Navigator.canPop(context)
                                   ? Navigator.pop(context)
                                   : null
@@ -85,7 +85,7 @@ class FeedDialog extends StatelessWidget {
                               cartProvider.addProductToCart(
                                   productId,
                                   prodAttr.petName!,
-                                  prodAttr.imageUrl!);
+                                  prodAttr.petImage!);
                               Navigator.canPop(context)
                                   ? Navigator.pop(context)
                                   : null;

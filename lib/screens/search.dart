@@ -35,7 +35,7 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<PetsProvider>(context);
-    final productsList = productsData.allUsers;
+    final productsList = productsData.allPets;
     return Scaffold(
       body: Column(
         children: [

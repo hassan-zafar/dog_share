@@ -1,20 +1,17 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 class PetsDataModel with ChangeNotifier {
   final String? petId;
   final String? petName;
-  final String? imageUrl;
+  final String? petImage;
   final String? age;
   final String? petGender;
-  final Timestamp? createdAt;
   final String? joinedAt;
-  final bool? isAdmin;
-  final String? email;
-  final String? androidNotificationToken;
-  final bool? isGuest;
+  final bool? isMale;
+  final String? petBreed;
+  final String? petDescription;
 
   // final Map? sectionsAppointed;
   PetsDataModel(
@@ -22,26 +19,22 @@ class PetsDataModel with ChangeNotifier {
       this.petName,
       this.petGender,
       this.age,
-      this.createdAt,
-      this.isAdmin,
-      this.email,
+      this.isMale,
+      this.petBreed,
       this.joinedAt,
-      this.isGuest,
-      this.imageUrl,
-      this.androidNotificationToken});
+      this.petImage,
+      this.petDescription});
 
   Map<String, dynamic> toMap() {
     return {
       'petId': petId,
       'petName': petName,
       'petGender': petGender,
-      'createdAt': createdAt,
-      'isAdmin': isAdmin,
-      'email': email,
+      'isMale': isMale,
+      'petBreed': petBreed,
       'joinedAt': joinedAt,
-      'imageUrl': imageUrl,
-      'isGuest': isGuest,
-      'androidNotificationToken': androidNotificationToken,
+      'petImage': petImage,
+      'petDescription': petDescription,
     };
   }
 
@@ -50,13 +43,10 @@ class PetsDataModel with ChangeNotifier {
         petId: map['petId'],
         petName: map['petName'],
         petGender: map['petGender'],
-        createdAt: map['createdAt'],
-        imageUrl: map['imageUrl'],
-        isAdmin: map['isAdmin'],
-        email: map['email'],
-        isGuest: map['isGuest'],
-        joinedAt: map['joinedAt'],
-        androidNotificationToken: map['androidNotificationToken']);
+        petImage: map['petImage'],
+        isMale: map['isMale'],
+        petBreed: map['petBreed'],
+        petDescription: map['petDescription']);
   }
 
   factory PetsDataModel.fromDocument(doc) {
@@ -64,13 +54,10 @@ class PetsDataModel with ChangeNotifier {
       petId: doc.data()["petId"],
       petGender: doc.data()["petGender"],
       petName: doc.data()["petName"],
-      createdAt: doc.data()["createdAt"],
-      email: doc.data()["email"],
-      imageUrl: doc.data()["imageUrl"],
-      isAdmin: doc.data()["isAdmin"],
-      isGuest: doc.data()["isGuest"],
-      joinedAt: doc.data()["joinedAt"],
-      androidNotificationToken: doc.data()["androidNotificationToken"],
+      petBreed: doc.data()["petBreed"],
+      petImage: doc.data()["petImage"],
+      isMale: doc.data()["isMale"],
+      petDescription: doc.data()["petDescription"],
     );
   }
 

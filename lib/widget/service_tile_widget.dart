@@ -59,7 +59,7 @@ class ServicesTileWidget extends StatelessWidget {
                   height: double.infinity,
                   child:  CachedNetworkImage(
                  imageUrl: 
-                    _user.imageUrl!,
+                    _user.petImage!,
                     fit: BoxFit.cover,
                     errorWidget:(context, url, error) =>  
                         Image.asset(CustomImages.icon, fit: BoxFit.cover),
@@ -99,7 +99,7 @@ class ServicesTileWidget extends StatelessWidget {
                   favsProvider.addAndRemoveFromFav(
                       _user.petId!,
                       prodAttr.petName!,
-                      prodAttr.imageUrl!);
+                      prodAttr.petImage!);
                 },
                 icon: Icon(
                   favsProvider.getFavsItems.containsKey(_user.petId)
@@ -114,7 +114,7 @@ class ServicesTileWidget extends StatelessWidget {
                   cartProvider.addProductToCart(
                       _user.petId!,
                       prodAttr.petName!,
-                      prodAttr.imageUrl!);
+                      prodAttr.petImage!);
                   Navigator.canPop(context) ? Navigator.pop(context) : null;
                 },
                 icon: cartProvider.getCartItems.containsKey(_user.petId)

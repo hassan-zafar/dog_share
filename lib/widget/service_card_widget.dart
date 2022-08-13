@@ -38,10 +38,10 @@ class ServiceCardWidget extends StatelessWidget {
             children: <Widget>[
               AspectRatio(
                 aspectRatio: 1 ,
-                child: (user.imageUrl == null || user.imageUrl!.isEmpty)
+                child: (user.petImage == null || user.petImage!.isEmpty)
                     ? Image.asset(CustomImages.icon, fit: BoxFit.fill)
                     : CachedNetworkImage(
-                        imageUrl: user.imageUrl!, fit: BoxFit.fill),
+                        imageUrl: user.petImage!, fit: BoxFit.fill),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,7 +51,7 @@ class ServiceCardWidget extends StatelessWidget {
                       favsProvider.addAndRemoveFromFav(
                           user.petId!,
                           prodAttr.petName!,
-                          prodAttr.imageUrl!);
+                          prodAttr.petImage!);
                     },
                     icon: Icon(
                       favsProvider.getFavsItems.containsKey(user.petId)
@@ -67,7 +67,7 @@ class ServiceCardWidget extends StatelessWidget {
                       cartProvider.addProductToCart(
                           user.petId!,
                           prodAttr.petName!,
-                          prodAttr.imageUrl!);
+                          prodAttr.petImage!);
                     },
                     icon: cartProvider.getCartItems.containsKey(user.petId)
                         ? Icon(MyAppIcons.favouriteOutlined)

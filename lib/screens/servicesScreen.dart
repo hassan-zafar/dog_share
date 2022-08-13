@@ -95,7 +95,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
         ),
         body: RefreshIndicator(
           onRefresh: _getProductsOnRefresh,
-          child: allUsersProvider.allUsers.isEmpty
+          child: allUsersProvider.allPets.isEmpty
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -121,12 +121,12 @@ class _ServicesScreenState extends State<ServicesScreen> {
                   ),
                 )
               : GridView.builder(
-                  itemCount: allUsersProvider.allUsers.length,
+                  itemCount: allUsersProvider.allPets.length,
                   itemBuilder: (context, index) {
                     return ChangeNotifierProvider<PetsProvider>.value(
                       value: allUsersProvider,
                       child: ServiceCardWidget(
-                          user: allUsersProvider.allUsers[index]),
+                          user: allUsersProvider.allPets[index]),
                     );
                     
                   },
