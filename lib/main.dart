@@ -119,7 +119,7 @@ class _MyAppState extends State<MyApp> {
               ChangeNotifierProvider<FavsProvider>.value(value: FavsProvider()),
               ChangeNotifierProvider<OrdersProvider>.value(
                   value: OrdersProvider()),
-              ChangeNotifierProvider<AllUsers>.value(value: AllUsers()),
+              ChangeNotifierProvider<PetsProvider>.value(value: PetsProvider()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

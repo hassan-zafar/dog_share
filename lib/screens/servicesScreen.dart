@@ -21,7 +21,7 @@ class ServicesScreen extends StatefulWidget {
 
 class _ServicesScreenState extends State<ServicesScreen> {
   Future<void> _getProductsOnRefresh() async {
-    await Provider.of<AllUsers>(context, listen: false).fetchProducts();
+    await Provider.of<PetsProvider>(context, listen: false).fetchProducts();
     if (mounted) {
       setState(() {});
     }
@@ -36,7 +36,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
   @override
   Widget build(BuildContext context) {
     final popular = ModalRoute.of(context)!.settings.arguments;
-    final allUsersProvider = Provider.of<AllUsers>(
+    final allUsersProvider = Provider.of<PetsProvider>(
       context,
     );
 
@@ -123,7 +123,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
               : GridView.builder(
                   itemCount: allUsersProvider.allUsers.length,
                   itemBuilder: (context, index) {
-                    return ChangeNotifierProvider<AllUsers>.value(
+                    return ChangeNotifierProvider<PetsProvider>.value(
                       value: allUsersProvider,
                       child: ServiceCardWidget(
                           user: allUsersProvider.allUsers[index]),

@@ -23,16 +23,15 @@ enum IndGrp { Individual, Group, Either }
 class _UploadProductFormState extends State<UploadProductForm> {
   final _formKey = GlobalKey<FormState>();
 
-  var _productTitle = '';
-  var _productPrice = '';
-  var _productCategory = '';
-  var _productBrand = '';
-  var _productDescription = '';
+  var _petName = '';
+  var _petAge = '';
+  var _petGender = '';
+  var _petBreed = '';
+  var _petDescription = '';
   String? _gameTime = "20";
   var _pellets = '';
 
-  final TextEditingController _categoryController = TextEditingController();
-  TextEditingController _gameTimeController = TextEditingController();
+  final TextEditingController _petGenderController = TextEditingController();
   String? _categoryValue;
   String? _brandValue;
   GlobalMethods _globalMethods = GlobalMethods();
@@ -40,18 +39,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
   File? _pickedImage;
   bool _isLoading = false;
   String? url;
-  var uuid = Uuid();
-  final FixedExtentScrollController groupIndividual =
-      FixedExtentScrollController(initialItem: 0);
-  final FixedExtentScrollController groupmemberNumbers =
+  var uuid = const Uuid();
+  final FixedExtentScrollController _petGenderPickerScrollController =
       FixedExtentScrollController(initialItem: 0);
 
-  bool? _isIndividual = true;
-  int? _groupMembers = 10;
-
-  int? indGrpValue = 0;
-
-  String? _indGroupType;
   showAlertDialog(BuildContext context, String title, String body) {
     // show the dialog
     showDialog(
@@ -62,7 +53,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           content: Text(body),
           actions: [
             FlatButton(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -79,11 +70,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
     if (isValid) {
       _formKey.currentState!.save();
-      print(_productTitle);
-      print(_productPrice);
-      print(_productCategory);
-      print(_productBrand);
-      print(_productDescription);
+      print(_petName);
+      print(_petAge);
+      print(_petGender);
+      print(_petBreed);
+      print(_petDescription);
       print(_gameTime);
       // Use those values to send our request ...
     }
@@ -98,8 +89,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
           });
           final ref = FirebaseStorage.instance
               .ref()
-              .child('productsImages')
-              .child(_productTitle + '.jpg');
+              .child('petImages')
+              .child(_petName + '.jpg');
           await ref.putFile(_pickedImage!);
           url = await ref.getDownloadURL();
 
@@ -107,20 +98,17 @@ class _UploadProductFormState extends State<UploadProductForm> {
           final _uid = user!.uid;
           final productId = uuid.v4();
           await FirebaseFirestore.instance
-              .collection('products')
+              .collection('pets')
               .doc(productId)
               .set({
-            'productId': productId,
-            'productTitle': _productTitle,
-            'price': _productPrice,
-            'productImage': url,
-            'productCategory': _indGroupType,
-            'pallets': _pellets,
-            "groupMembers": _isIndividual! ? 0 : _groupMembers,
-            'productDescription': _productDescription,
-            'gameTime': _gameTime,
+            'petId': productId,
+            'petName': _petName,
+            'age': _petAge,
+            'petGender': _petGender,
+            'petBreed': _petBreed,
+            'petImage': url,
+            'petDescription': _petDescription,
             'userId': _uid,
-            "isIndividual": _isIndividual,
             'createdAt': Timestamp.now(),
           });
           Navigator.canPop(context) ? Navigator.pop(context) : null;
@@ -160,7 +148,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
     setState(() {
       _pickedImage = pickedImageFile;
     });
-    // widget.imagePickFn(pickedImageFile);
   }
 
   void _removeImage() {
@@ -173,7 +160,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _gameTimeController = TextEditingController(text: _gameTime!);
   }
 
   @override
@@ -185,7 +171,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           width: double.infinity,
           decoration: BoxDecoration(
             color: ColorsConsts.white,
-            border: Border(
+            border: const Border(
               top: BorderSide(
                 color: Colors.grey,
                 width: 0.5,
@@ -203,12 +189,12 @@ class _UploadProductFormState extends State<UploadProductForm> {
                   Padding(
                     padding: const EdgeInsets.only(right: 2),
                     child: _isLoading
-                        ? Center(
-                            child: Container(
+                        ? const Center(
+                            child: SizedBox(
                                 height: 40,
                                 width: 40,
                                 child: CircularProgressIndicator()))
-                        : Text('Upload',
+                        : const Text('Upload',
                             style: TextStyle(fontSize: 16),
                             textAlign: TextAlign.center),
                   ),
@@ -237,9 +223,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
             children: [
               Center(
                 child: Card(
-                  margin: EdgeInsets.all(15),
+                  margin: const EdgeInsets.all(15),
                   child: Padding(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -254,7 +240,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 9),
                                   child: TextFormField(
-                                    key: ValueKey('Title'),
+                                    key: const ValueKey('Title'),
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return 'Please enter a Title';
@@ -262,11 +248,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                       return null;
                                     },
                                     keyboardType: TextInputType.emailAddress,
-                                    decoration: InputDecoration(
-                                      labelText: 'Service Title',
+                                    decoration: const InputDecoration(
+                                      labelText: 'Pet Name',
                                     ),
                                     onSaved: (value) {
-                                      _productTitle = value!;
+                                      _petName = value!;
                                     },
                                   ),
                                 ),
@@ -274,7 +260,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               Flexible(
                                 flex: 1,
                                 child: TextFormField(
-                                  key: ValueKey('Price ₦'),
+                                  key: const ValueKey('Age'),
                                   keyboardType: TextInputType.number,
                                   validator: (value) {
                                     if (value!.isEmpty) {
@@ -286,8 +272,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     FilteringTextInputFormatter.allow(
                                         RegExp(r'[0-9]')),
                                   ],
-                                  decoration: InputDecoration(
-                                    labelText: 'Price ₦',
+                                  decoration: const InputDecoration(
+                                    labelText: 'Age',
                                     //  prefixIcon: Icon(Icons.mail),
                                     // suffixIcon: Text(
                                     //   '\n \n ₦',
@@ -296,13 +282,13 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   ),
                                   //obscureText: true,
                                   onSaved: (value) {
-                                    _productPrice = value!;
+                                    _petAge = value!;
                                   },
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           /* Image picker here ***********************************/
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -311,7 +297,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 //  flex: 2,
                                 child: this._pickedImage == null
                                     ? Container(
-                                        margin: EdgeInsets.all(10),
+                                        margin: const EdgeInsets.all(10),
                                         height: 200,
                                         width: 200,
                                         decoration: BoxDecoration(
@@ -323,7 +309,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         ),
                                       )
                                     : Container(
-                                        margin: EdgeInsets.all(10),
+                                        margin: const EdgeInsets.all(10),
                                         height: 200,
                                         width: 200,
                                         child: Container(
@@ -352,8 +338,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     child: FlatButton.icon(
                                       textColor: Colors.white,
                                       onPressed: _pickImageCamera,
-                                      icon: Icon(Icons.camera),
-                                      label: Text(
+                                      icon: const Icon(Icons.camera),
+                                      label: const Text(
                                         'Camera',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
@@ -365,10 +351,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     child: FlatButton.icon(
                                       textColor: Colors.white,
                                       onPressed: _pickImageGallery,
-                                      icon: Icon(Icons.image),
-                                      label: Text(
+                                      icon: const Icon(Icons.image),
+                                      label: const Text(
                                         'Gallery',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -378,13 +364,13 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     child: FlatButton.icon(
                                       textColor: Colors.white,
                                       onPressed: _removeImage,
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.remove_circle_rounded,
                                         color: Colors.red,
                                       ),
-                                      label: Text(
+                                      label: const Text(
                                         'Remove',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -394,9 +380,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           TextFormField(
-                              key: ValueKey('Description'),
+                              key: const ValueKey('Description'),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'service description is required';
@@ -406,111 +392,62 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               //controller: this._controller,
                               maxLines: 10,
                               textCapitalization: TextCapitalization.sentences,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 //  counterText: charLength.toString(),
                                 labelText: 'Description',
-                                hintText: 'Service description',
+                                hintText: 'Pet description',
                                 border: OutlineInputBorder(),
                               ),
                               onSaved: (value) {
-                                _productDescription = value!;
+                                _petDescription = value!;
                               },
                               onChanged: (text) {
                                 // setState(() => charLength -= text.length);
                               }),
                           //    SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Expanded(
-                                //flex: 2,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 9),
-                                  child: TextFormField(
-                                    controller: _gameTimeController,
-                                    keyboardType: TextInputType.number,
-                                    key: ValueKey('Game Time'),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Game time is missing';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: 'Game Time',
-                                      suffix: Text("min"),
-                                    ),
-                                    onSaved: (value) {
-                                      _gameTime = value!;
-                                    },
-                                  ),
+                          Padding(
+                              padding: const EdgeInsets.only(right: 9),
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                key: const ValueKey('Pet Breed'),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Pet Breed is missed';
+                                  }
+                                  return null;
+                                },
+                                decoration: const InputDecoration(
+                                  labelText: 'Pet Breed',
                                 ),
+                                onSaved: (value) {
+                                  _petBreed = value!;
+                                },
                               ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 9),
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    key: ValueKey('Pellets'),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Number of Pellets are missed';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: 'Pellets',
-                                    ),
-                                    onSaved: (value) {
-                                      _pellets = value!;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                Expanded(
+                                const Expanded(
                                   flex: 3,
-                                  child: Text("Group / Individual / Either"),
+                                  child: Text("Pet Gender"),
                                 ),
                                 Expanded(
                                   flex: 2,
-                                  child: groupIndividualPicker(
-                                    controller: groupIndividual,
+                                  child: petGenderPicker(
+                                    controller: _petGenderPickerScrollController,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          _isIndividual!
-                              ? Container()
-                              : Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 3,
-                                        child: Text("Number of group members"),
-                                      ),
-                                      Expanded(
-                                          flex: 2,
-                                          child: groupMembers(
-                                              controller: groupmemberNumbers)),
-                                    ],
-                                  ),
-                                ),
                         ],
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               )
             ],
@@ -520,7 +457,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     );
   }
 
-  Container groupIndividualPicker({
+  Container petGenderPicker({
     final controller,
   }) {
     return Container(
@@ -532,68 +469,21 @@ class _UploadProductFormState extends State<UploadProductForm> {
         onSelectedItemChanged: (int value) {
           setState(() {
             if (value == 0) {
-              this.indGrpValue = value;
-
-              _isIndividual = true;
-              _indGroupType = "individual";
+              _petGender = 'male';
             } else if (value == 1) {
-              _isIndividual = false;
-              _indGroupType = "group";
-            } else {
-              _isIndividual = false;
-              _indGroupType = "either";
-            }
-          });
-          print(_isIndividual);
-        },
-        itemExtent: 25,
-        scrollController: controller,
-        children: [
-          Text(
-            "Individual",
-            style: TextStyle(color: Colors.white),
-          ),
-          Text(
-            "Group",
-            style: TextStyle(color: Colors.white),
-          ),
-          Text(
-            "Either",
-            style: TextStyle(color: Colors.white),
-          ),
-        ],
-        useMagnifier: true, diameterRatio: 1,
-        magnification: 1.1,
-      ),
-    );
-  }
-
-  Container groupMembers({
-    final controller,
-  }) {
-    return Container(
-      // width: 200,
-      height: 80,
-      child: CupertinoPicker(
-        selectionOverlay: null,
-        // squeeze: 1.5,
-        onSelectedItemChanged: (int value) {
-          setState(() {
-            if (value == 0) {
-              _groupMembers = 10;
-            } else if (value == 1) {
-              _groupMembers = 20;
-            } else if (value == 2) {
-              _groupMembers = 50;
+              _petGender = 'female';
             }
           });
         },
         itemExtent: 25,
         scrollController: controller,
-        children: [
-          Text("10"),
-          Text("20"),
-          Text("50"),
+        children: const [
+          Text(
+            "Female",
+          ),
+          Text(
+            "Male",
+          ),
         ],
         useMagnifier: true, diameterRatio: 1,
         magnification: 1.1,

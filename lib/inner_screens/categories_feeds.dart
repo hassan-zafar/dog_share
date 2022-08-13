@@ -7,7 +7,7 @@ class CategoriesFeedsScreen extends StatelessWidget {
   static const routeName = '/CategoriesFeedsScreen';
   @override
   Widget build(BuildContext context) {
-    final productsProvider = Provider.of<AllUsers>(context, listen: false);
+    final productsProvider = Provider.of<PetsProvider>(context, listen: false);
     final categoryName = ModalRoute.of(context)!.settings.arguments as String;
     print(categoryName);
     final productsList = productsProvider.findByCategory(categoryName);
@@ -40,7 +40,7 @@ class CategoriesFeedsScreen extends StatelessWidget {
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
               children: List.generate(productsList.length, (index) {
-                return ChangeNotifierProvider<AllUsers>.value(
+                return ChangeNotifierProvider<PetsProvider>.value(
                   value: productsProvider,
                   child: ServiceCardWidget(),
                 );

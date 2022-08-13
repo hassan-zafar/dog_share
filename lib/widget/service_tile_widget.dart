@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dog_share/consts/my_icons.dart';
-import 'package:dog_share/models/users.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dog_share/inner_screens/service_details.dart';
@@ -20,12 +19,12 @@ class ServicesTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<AllUsers>(context, listen: false);
+    final productsData = Provider.of<PetsProvider>(context, listen: false);
 
     final cartProvider = Provider.of<FavouriteProvider>(context);
 
     final favsProvider = Provider.of<FavsProvider>(context);
-    final prodAttr = productsData.findById(_user.id!);
+    final prodAttr = productsData.findById(_user.petName!);
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -74,7 +73,7 @@ class ServicesTileWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      _user.name!,
+                      _user.petName!,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -83,7 +82,7 @@ class ServicesTileWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      _user.phoneNo!,
+                      _user.petGender!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -98,12 +97,12 @@ class ServicesTileWidget extends StatelessWidget {
                 splashRadius: 20,
                 onPressed: () {
                   favsProvider.addAndRemoveFromFav(
-                      _user.id!,
-                      prodAttr.name!,
+                      _user.petId!,
+                      prodAttr.petName!,
                       prodAttr.imageUrl!);
                 },
                 icon: Icon(
-                  favsProvider.getFavsItems.containsKey(_user.id)
+                  favsProvider.getFavsItems.containsKey(_user.petId)
                       ? Icons.favorite_border
                       : Icons.favorite_border,
                   color: Theme.of(context).colorScheme.secondary,
@@ -113,12 +112,12 @@ class ServicesTileWidget extends StatelessWidget {
                 splashRadius: 20,
                 onPressed: () {
                   cartProvider.addProductToCart(
-                      _user.id!,
-                      prodAttr.name!,
+                      _user.petId!,
+                      prodAttr.petName!,
                       prodAttr.imageUrl!);
                   Navigator.canPop(context) ? Navigator.pop(context) : null;
                 },
-                icon: cartProvider.getCartItems.containsKey(_user.id)
+                icon: cartProvider.getCartItems.containsKey(_user.petId)
                     ?  Icon(MyAppIcons.favouriteOutlined)
                     : Icon(MyAppIcons.favouriteOutlined),
               ),

@@ -33,7 +33,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<AllUsers>(context, listen: false);
+    final productsData = Provider.of<PetsProvider>(context, listen: false);
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final cartProvider = Provider.of<FavouriteProvider>(context);
 
@@ -114,7 +114,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.9,
                               child: Text(
-                                prodAttr.name!,
+                                prodAttr.petName!,
                                 maxLines: 2,
                                 style: const TextStyle(
                                   // color: Theme.of(context).textSelectionColor,
@@ -127,7 +127,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                               height: 8,
                             ),
                             Text(
-                              prodAttr.phoneNo!,
+                              prodAttr.petGender!,
                               style: TextStyle(
                                 color: ColorsConsts.subTitle,
                                 fontWeight: FontWeight.bold,
@@ -150,7 +150,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          prodAttr.phoneNo!,
+                          prodAttr.petGender!,
                         ),
                       ),
                       const SizedBox(height: 5.0),
@@ -279,7 +279,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                               : () {
                                   cartProvider.addProductToCart(
                                       productId,
-                                      prodAttr.name!,
+                                      prodAttr.petName!,
                                       prodAttr.imageUrl!);
                                 },
                       child: Text(
@@ -303,7 +303,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                         favsProvider.addAndRemoveFromFav(
                             productId,
                             // double.parse(prodAttr.phoneNo!),
-                            prodAttr.name!,
+                            prodAttr.petName!,
                             prodAttr.imageUrl!);
                       },
                       child: Center(

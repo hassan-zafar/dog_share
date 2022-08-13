@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-class PetsDataModel with ChangeNotifier{
-  final String? id;
-  final String? name;
+class PetsDataModel with ChangeNotifier {
+  final String? petId;
+  final String? petName;
   final String? imageUrl;
-  final String? phoneNo;
-  final String? password;
+  final String? age;
+  final String? petGender;
   final Timestamp? createdAt;
   final String? joinedAt;
   final bool? isAdmin;
@@ -18,10 +18,10 @@ class PetsDataModel with ChangeNotifier{
 
   // final Map? sectionsAppointed;
   PetsDataModel(
-      {this.id,
-      this.name,
-      this.phoneNo,
-      this.password,
+      {this.petId,
+      this.petName,
+      this.petGender,
+      this.age,
       this.createdAt,
       this.isAdmin,
       this.email,
@@ -32,10 +32,9 @@ class PetsDataModel with ChangeNotifier{
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'name': name,
-      'phoneNo': phoneNo,
-      'password': password,
+      'petId': petId,
+      'petName': petName,
+      'petGender': petGender,
       'createdAt': createdAt,
       'isAdmin': isAdmin,
       'email': email,
@@ -48,10 +47,9 @@ class PetsDataModel with ChangeNotifier{
 
   factory PetsDataModel.fromMap(Map<String, dynamic> map) {
     return PetsDataModel(
-        id: map['id'],
-        name: map['userName'],
-        phoneNo: map['phoneNo'],
-        password: map['password'],
+        petId: map['petId'],
+        petName: map['petName'],
+        petGender: map['petGender'],
         createdAt: map['createdAt'],
         imageUrl: map['imageUrl'],
         isAdmin: map['isAdmin'],
@@ -63,15 +61,14 @@ class PetsDataModel with ChangeNotifier{
 
   factory PetsDataModel.fromDocument(doc) {
     return PetsDataModel(
-      id: doc.data()["id"],
-      password: doc.data()["password"],
-      name: doc.data()["name"],
+      petId: doc.data()["petId"],
+      petGender: doc.data()["petGender"],
+      petName: doc.data()["petName"],
       createdAt: doc.data()["createdAt"],
       email: doc.data()["email"],
       imageUrl: doc.data()["imageUrl"],
       isAdmin: doc.data()["isAdmin"],
       isGuest: doc.data()["isGuest"],
-      phoneNo: doc.data()["phoneNo"],
       joinedAt: doc.data()["joinedAt"],
       androidNotificationToken: doc.data()["androidNotificationToken"],
     );

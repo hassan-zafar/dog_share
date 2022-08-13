@@ -34,7 +34,7 @@ class _SearchState extends State<Search> {
   List<PetsDataModel> _searchList = [];
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<AllUsers>(context);
+    final productsData = Provider.of<PetsProvider>(context);
     final productsList = productsData.allUsers;
     return Scaffold(
       body: Column(
@@ -95,7 +95,7 @@ class _SearchState extends State<Search> {
                         ? productsList.length
                         : _searchList.length,
                     itemBuilder: (context, index) {
-                      return ChangeNotifierProvider<AllUsers>.value(
+                      return ChangeNotifierProvider<PetsProvider>.value(
                         value: productsData,
                         // _searchTextController!.text.isEmpty
                         //     ? productsList[index]

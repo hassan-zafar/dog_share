@@ -1,3 +1,4 @@
+import 'package:dog_share/screens/adminScreens/upload_product_form.dart';
 import 'package:provider/provider.dart';
 import 'package:dog_share/consts/my_icons.dart';
 import 'package:dog_share/screens/search.dart';
@@ -20,10 +21,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     Search(),
     // MyBookingsScreen(),
     // CalenderScreen(),
-    // // UserInfo(),
     // UserNSearch(),
     // ChatLists(),
-    // UploadProductForm()
+    UploadProductForm()
   ];
 
   @override
@@ -53,10 +53,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               label: 'Search',
             ),
 
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.shopping_cart_rounded),
-            //   label: 'BOOKINGS',
-            // ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.upload),
+              label: 'Upload',
+            ),
             // BottomNavigationBarItem(
             //   icon: Icon(Icons.calendar_today),
             //   label: 'All Bookings',

@@ -21,12 +21,12 @@ class _ServiceCardWidgetState extends State<ServiceCardWidget> {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
-            arguments: productsAttributes.id);
+            arguments: productsAttributes.petId);
       },
       child: Container(
         height: 120,
         width: 150,
-        padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(
@@ -61,7 +61,7 @@ class _ServiceCardWidgetState extends State<ServiceCardWidget> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
-                        productsAttributes.name!,
+                        productsAttributes.petName!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

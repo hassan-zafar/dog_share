@@ -19,15 +19,15 @@ class ServiceCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<FavouriteProvider>(context);
     final favsProvider = Provider.of<FavsProvider>(context);
-    final productsData = Provider.of<AllUsers>(context, listen: false);
+    final productsData = Provider.of<PetsProvider>(context, listen: false);
     // final userAttributes  = Provider.of<AppUserModel>(context);
 
-    final prodAttr = productsData.findById(user.id!);
+    final prodAttr = productsData.findById(user.petId!);
 
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
-            arguments: prodAttr.id);
+            arguments: prodAttr.petId);
       },
       child: Padding(
         padding:
@@ -49,15 +49,15 @@ class ServiceCardWidget extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       favsProvider.addAndRemoveFromFav(
-                          user.id!,
-                          prodAttr.name!,
+                          user.petId!,
+                          prodAttr.petName!,
                           prodAttr.imageUrl!);
                     },
                     icon: Icon(
-                      favsProvider.getFavsItems.containsKey(user.id)
+                      favsProvider.getFavsItems.containsKey(user.petId)
                           ? Icons.favorite
                           : MyAppIcons.wishlist,
-                      color: favsProvider.getFavsItems.containsKey(user.id)
+                      color: favsProvider.getFavsItems.containsKey(user.petId)
                           ? Colors.red
                           : ColorsConsts.white,
                     ),
@@ -65,11 +65,11 @@ class ServiceCardWidget extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       cartProvider.addProductToCart(
-                          user.id!,
-                          prodAttr.name!,
+                          user.petId!,
+                          prodAttr.petName!,
                           prodAttr.imageUrl!);
                     },
-                    icon: cartProvider.getCartItems.containsKey(user.id)
+                    icon: cartProvider.getCartItems.containsKey(user.petId)
                         ? Icon(MyAppIcons.favouriteOutlined)
                         : Icon(MyAppIcons.favourite),
                   ),
@@ -108,7 +108,7 @@ class ServiceCardWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
-                        user.name!,
+                        user.petName!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

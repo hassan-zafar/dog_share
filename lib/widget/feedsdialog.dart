@@ -15,7 +15,7 @@ class FeedDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<AllUsers>(context, listen: false);
+    final productsData = Provider.of<PetsProvider>(context, listen: false);
 
     final cartProvider = Provider.of<FavouriteProvider>(context);
 
@@ -55,7 +55,7 @@ class FeedDialog extends StatelessWidget {
                         () => {
                               favsProvider.addAndRemoveFromFav(
                                   productId,
-                                  prodAttr.name!,
+                                  prodAttr.petName!,
                                   prodAttr.imageUrl!),
                               Navigator.canPop(context)
                                   ? Navigator.pop(context)
@@ -69,7 +69,7 @@ class FeedDialog extends StatelessWidget {
                         () => {
                               Navigator.pushNamed(
                                       context, ServiceDetailsScreen.routeName,
-                                      arguments: prodAttr.id)
+                                      arguments: prodAttr.petId)
                                   .then((value) => Navigator.canPop(context)
                                       ? Navigator.pop(context)
                                       : null),
@@ -84,7 +84,7 @@ class FeedDialog extends StatelessWidget {
                           : () {
                               cartProvider.addProductToCart(
                                   productId,
-                                  prodAttr.name!,
+                                  prodAttr.petName!,
                                   prodAttr.imageUrl!);
                               Navigator.canPop(context)
                                   ? Navigator.pop(context)
