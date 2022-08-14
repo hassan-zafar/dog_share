@@ -24,7 +24,7 @@ class PetsProvider with ChangeNotifier {
   }
 
   List<PetsDataModel> get popularProducts {
-    return _allPets.where((element) => element.isMale!).toList();
+    return _allPets.toList();
   }
 
   PetsDataModel findById(String productId) {

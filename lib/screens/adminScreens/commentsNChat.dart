@@ -11,7 +11,7 @@ import 'package:dog_share/models/users.dart';
 import 'package:dog_share/services/notificationHandler.dart';
 
 class CommentsNChat extends StatefulWidget {
-  // final String? postId;
+  final String? userName;
   // final String? postOwnerId;
   final String? chatId;
   final String? heroMsg;
@@ -19,7 +19,7 @@ class CommentsNChat extends StatefulWidget {
   final String? chatNotificationToken;
 //  final String userName;
   CommentsNChat({
-    // this.postId,
+    this.userName,
     // this.postMediaUrl,
     // this.postOwnerId,
     required this.chatId,
@@ -46,30 +46,27 @@ class CommentsNChatState extends State<CommentsNChat> {
   // required this.isComment,
 
   // });
-  List<AppUserModel> allAdmins = [];
+  // List<AppUserModel> allAdmins = [];
   String? chatHeadId;
   List<CommentsNMessages> commentsListGlobal = [];
 
-  getAdmins() async {
-    QuerySnapshot snapshots =
-        await userRef.where('isAdmin', isEqualTo: true).get();
-    snapshots.docs.forEach((e) {
-      allAdmins.add(AppUserModel.fromDocument(e));
-    });
-  }
+  // getAdmins() async {
+  //   QuerySnapshot snapshots =
+  //       await userRef.where('isAdmin', isEqualTo: true).get();
+  //   snapshots.docs.forEach((e) {
+  //     allAdmins.add(AppUserModel.fromDocument(e));
+  //   });
+  // }
 
   @override
   initState() {
     super.initState();
     if (mounted) {
       setState(() {
-        chatHeadId =
-            currentUser!.isAdmin != null && currentUser!.isAdmin == true
-                ? widget.chatId
-                : currentUser!.id;
+        chatHeadId = widget.chatId;
       });
     }
-    getAdmins();
+    // getAdmins();
   }
 
   buildChat() {
@@ -112,9 +109,7 @@ class CommentsNChatState extends State<CommentsNChat> {
     String commentId = Uuid().v1();
     if (_commentNMessagesController.text.trim().length > 1) {
       chatRoomRef
-          .doc(currentUser!.isAdmin != null && currentUser!.isAdmin == true
-              ? widget.chatId
-              : currentUser!.id)
+          .doc(widget.chatId)
           .collection("chats")
           .doc(commentId)
           .set({
@@ -126,10 +121,8 @@ class CommentsNChatState extends State<CommentsNChat> {
         "avatarUrl": currentUser!.imageUrl,
         "commentId": commentId,
       });
-      currentUser!.isAdmin!
-          ? null
-          : chatListRef
-              .doc(currentUser!.isAdmin! ? widget.chatId : currentUser!.id)
+     chatListRef
+              .doc(widget.chatId)
               .set({
               "userName": currentUser!.name,
               "userId": currentUser!.id,
@@ -154,7 +147,7 @@ class CommentsNChatState extends State<CommentsNChat> {
       sendAndRetrieveMessage(
           token: widget.chatNotificationToken!,
           message: _commentNMessagesController.text,
-          title: "Admin Chats",
+          title: widget.userName!,
           context: context);
       // }
 
@@ -174,7 +167,7 @@ class CommentsNChatState extends State<CommentsNChat> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           title: Text(
-            currentUser!.isAdmin! ? "Manage Queries" : "Contact Admin",
+            'Messages ${widget.userName}',
             style: TextStyle(color: Colors.black),
           ),
         ),

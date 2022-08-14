@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:dog_share/inner_screens/service_details.dart';
 import 'package:dog_share/provider/cart_provider.dart';
 import 'package:dog_share/provider/favs_provider.dart';
-import 'package:dog_share/provider/products.dart';
+import 'package:dog_share/provider/pets_provider.dart';
 import '../../../../utilities/custom_images.dart';
 import '../../../../utilities/utilities.dart';
 import '../models/petsDataModel.dart';
@@ -24,7 +24,7 @@ class ServicesTileWidget extends StatelessWidget {
     final cartProvider = Provider.of<FavouriteProvider>(context);
 
     final favsProvider = Provider.of<FavsProvider>(context);
-    final prodAttr = productsData.findById(_user.petName!);
+    final prodAttr = productsData.findById(_user.petId!);
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -34,11 +34,9 @@ class ServicesTileWidget extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(Utilities.padding),
         onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute<ServiceDetailsScreen>(
-              builder: (BuildContext context) => ServiceDetailsScreen(),
-            ),
-          );
+          Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
+            arguments: prodAttr.petId);
+          
         },
         child: Container(
           height: 80,

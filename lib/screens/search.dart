@@ -1,7 +1,7 @@
 import 'package:dog_share/models/users.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dog_share/provider/products.dart';
+import 'package:dog_share/provider/pets_provider.dart';
 import 'package:dog_share/utilities/utilities.dart';
 import 'package:dog_share/widget/service_tile_widget.dart';
 import 'package:dog_share/widget/tools/empty_iconic_widget.dart';

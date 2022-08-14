@@ -4,7 +4,7 @@ import 'package:dog_share/consts/my_icons.dart';
 import 'package:dog_share/inner_screens/service_details.dart';
 import 'package:dog_share/provider/cart_provider.dart';
 import 'package:dog_share/provider/favs_provider.dart';
-import 'package:dog_share/provider/products.dart';
+import 'package:dog_share/provider/pets_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';

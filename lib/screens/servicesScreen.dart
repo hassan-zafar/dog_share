@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:dog_share/cart/cart.dart';
 import 'package:dog_share/provider/cart_provider.dart';
 import 'package:dog_share/provider/favs_provider.dart';
-import 'package:dog_share/provider/products.dart';
+import 'package:dog_share/provider/pets_provider.dart';
 import 'package:dog_share/widget/service_card_widget.dart';
 import 'package:dog_share/widget/tools/custom_drawer.dart';
 import 'package:dog_share/wishlist/wishlist.dart';
@@ -126,7 +126,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                     return ChangeNotifierProvider<PetsProvider>.value(
                       value: allUsersProvider,
                       child: ServiceCardWidget(
-                          user: allUsersProvider.allPets[index]),
+                          petData: allUsersProvider.allPets[index]),
                     );
                     
                   },

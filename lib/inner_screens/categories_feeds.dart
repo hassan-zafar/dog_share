@@ -1,4 +1,4 @@
-import 'package:dog_share/provider/products.dart';
+import 'package:dog_share/provider/pets_provider.dart';
 import 'package:dog_share/widget/serviceCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

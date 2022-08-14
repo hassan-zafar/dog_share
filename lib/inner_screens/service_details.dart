@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dog_share/screens/adminScreens/commentsNChat.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dog_share/cart/cart.dart';
 import 'package:dog_share/consts/collections.dart';
@@ -12,7 +13,7 @@ import 'package:dog_share/inner_screens/productComments.dart';
 import 'package:dog_share/models/users.dart';
 import 'package:dog_share/provider/cart_provider.dart';
 import 'package:dog_share/provider/favs_provider.dart';
-import 'package:dog_share/provider/products.dart';
+import 'package:dog_share/provider/pets_provider.dart';
 import 'package:dog_share/widget/serviceCardWidget.dart';
 import 'package:dog_share/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,11 @@ class ServiceDetailsScreen extends StatefulWidget {
 }
 
 class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
-  GlobalKey previewContainer =  GlobalKey();
+  GlobalKey previewContainer = GlobalKey();
   final TextEditingController _reviewController = TextEditingController();
   bool isUploading = false;
   List allReviews = [];
-
+  String userName = '';
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<PetsProvider>(context, listen: false);
@@ -147,10 +148,18 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                         ),
                       ),
                       const SizedBox(height: 5.0),
+                      const Text(
+                        'Description',
+                        style: TextStyle(
+                          // color: Theme.of(context).textSelectionColor,
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          prodAttr.petGender!,
+                          prodAttr.petDescription!,
                         ),
                       ),
                       const SizedBox(height: 5.0),
@@ -162,6 +171,29 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           height: 1,
                         ),
                       ),
+                      FutureBuilder<QuerySnapshot>(
+                          future: userRef
+                              .where("id", isEqualTo: prodAttr.userId)
+                              .get(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return const CircularProgressIndicator();
+                            }
+
+                            print(snapshot.hasData);
+                            print(snapshot.data?.docs.first);
+                            AppUserModel user = AppUserModel.fromDocument(
+                                snapshot.data?.docs.first);
+                            print(user.imageUrl);
+                            userName=user.name!;
+                            return ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    CachedNetworkImageProvider(user.imageUrl!),
+                              ),
+                              title: Text(user.name!),
+                            );
+                          }),
                       const SizedBox(height: 15),
                       const Divider(
                         thickness: 1,
@@ -192,7 +224,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       return ChangeNotifierProvider.value(
                           value: productsData.allPets[index],
                           //  productsList[index],
-                          child: ServiceCardWidget());
+                          child: const ServiceCardWidget());
                     },
                   ),
                 ),
@@ -210,8 +242,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
               centerTitle: true,
               title: const Text(
                 "DETAIL",
-                style: const TextStyle(
-                    fontSize: 16.0, fontWeight: FontWeight.normal),
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
               ),
               actions: <Widget>[
                 Consumer<FavsProvider>(
@@ -273,19 +304,19 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       shape:
                           const RoundedRectangleBorder(side: BorderSide.none),
                       color: Theme.of(context).primaryColor,
-                      onPressed:
-                          cartProvider.getCartItems.containsKey(productId)
-                              ? () {}
-                              : () {
-                                  cartProvider.addProductToCart(
-                                      productId,
-                                      prodAttr.petName!,
-                                      prodAttr.petImage!);
-                                },
+                      onPressed: (() => prodAttr.userId == currentUser!.id
+                          ? null
+                          : Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CommentsNChat(
+                                  chatId: currentUser!.id,
+                                  userName: userName,
+                                  chatNotificationToken:
+                                      currentUser!.androidNotificationToken!),
+                            ))),
                       child: Text(
-                        cartProvider.getCartItems.containsKey(productId)
-                            ? 'Liked'
-                            : 'Like them'.toUpperCase(),
+                        prodAttr.userId == currentUser!.id
+                            ? 'You Created it'
+                            : 'Chat With them'.toUpperCase(),
                         style:
                             const TextStyle(fontSize: 16, color: Colors.black),
                       ),

@@ -6,14 +6,14 @@ import 'package:dog_share/consts/my_icons.dart';
 import 'package:dog_share/inner_screens/service_details.dart';
 import 'package:dog_share/provider/cart_provider.dart';
 import 'package:dog_share/provider/favs_provider.dart';
-import 'package:dog_share/provider/products.dart';
+import 'package:dog_share/provider/pets_provider.dart';
 import '../../../../utilities/custom_images.dart';
 import '../../../../utilities/utilities.dart';
 import '../models/petsDataModel.dart';
 
 class ServiceCardWidget extends StatelessWidget {
-  const ServiceCardWidget({required this.user, Key? key}) : super(key: key);
-  final PetsDataModel user;
+  const ServiceCardWidget({required this.petData, Key? key}) : super(key: key);
+  final PetsDataModel petData;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ServiceCardWidget extends StatelessWidget {
     final productsData = Provider.of<PetsProvider>(context, listen: false);
     // final userAttributes  = Provider.of<AppUserModel>(context);
 
-    final prodAttr = productsData.findById(user.petId!);
+    final prodAttr = productsData.findById(petData.petId!);
 
     return GestureDetector(
       onTap: () {
@@ -38,10 +38,10 @@ class ServiceCardWidget extends StatelessWidget {
             children: <Widget>[
               AspectRatio(
                 aspectRatio: 1 ,
-                child: (user.petImage == null || user.petImage!.isEmpty)
+                child: (petData.petImage == null || petData.petImage!.isEmpty)
                     ? Image.asset(CustomImages.icon, fit: BoxFit.fill)
                     : CachedNetworkImage(
-                        imageUrl: user.petImage!, fit: BoxFit.fill),
+                        imageUrl: petData.petImage!, fit: BoxFit.fill),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,15 +49,15 @@ class ServiceCardWidget extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       favsProvider.addAndRemoveFromFav(
-                          user.petId!,
+                          petData.petId!,
                           prodAttr.petName!,
                           prodAttr.petImage!);
                     },
                     icon: Icon(
-                      favsProvider.getFavsItems.containsKey(user.petId)
+                      favsProvider.getFavsItems.containsKey(petData.petId)
                           ? Icons.favorite
                           : MyAppIcons.wishlist,
-                      color: favsProvider.getFavsItems.containsKey(user.petId)
+                      color: favsProvider.getFavsItems.containsKey(petData.petId)
                           ? Colors.red
                           : ColorsConsts.white,
                     ),
@@ -65,11 +65,11 @@ class ServiceCardWidget extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       cartProvider.addProductToCart(
-                          user.petId!,
+                          petData.petId!,
                           prodAttr.petName!,
                           prodAttr.petImage!);
                     },
-                    icon: cartProvider.getCartItems.containsKey(user.petId)
+                    icon: cartProvider.getCartItems.containsKey(petData.petId)
                         ? Icon(MyAppIcons.favouriteOutlined)
                         : Icon(MyAppIcons.favourite),
                   ),
@@ -108,7 +108,7 @@ class ServiceCardWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
-                        user.petName!,
+                        petData.petName!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -117,7 +117,7 @@ class ServiceCardWidget extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${user.joinedAt}',
+                        petData.petGender!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

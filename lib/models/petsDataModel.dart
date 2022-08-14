@@ -11,6 +11,7 @@ class PetsDataModel with ChangeNotifier {
   final String? joinedAt;
   final bool? isMale;
   final String? petBreed;
+  final String? userId;
   final String? petDescription;
 
   // final Map? sectionsAppointed;
@@ -22,12 +23,13 @@ class PetsDataModel with ChangeNotifier {
       this.isMale,
       this.petBreed,
       this.joinedAt,
-      this.petImage,
+      this.petImage,this.userId,
       this.petDescription});
 
   Map<String, dynamic> toMap() {
     return {
       'petId': petId,
+      'userId': userId,
       'petName': petName,
       'petGender': petGender,
       'isMale': isMale,
@@ -46,7 +48,8 @@ class PetsDataModel with ChangeNotifier {
         petImage: map['petImage'],
         isMale: map['isMale'],
         petBreed: map['petBreed'],
-        petDescription: map['petDescription']);
+        petDescription: map ['petDescription'],
+        userId: map ['userId']);
   }
 
   factory PetsDataModel.fromDocument(doc) {
@@ -57,6 +60,7 @@ class PetsDataModel with ChangeNotifier {
       petBreed: doc.data()["petBreed"],
       petImage: doc.data()["petImage"],
       isMale: doc.data()["isMale"],
+      userId: doc.data()["userId"],
       petDescription: doc.data()["petDescription"],
     );
   }

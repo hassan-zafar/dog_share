@@ -17,7 +17,7 @@ import 'package:dog_share/main_screen.dart';
 import 'package:dog_share/provider/cart_provider.dart';
 import 'package:dog_share/provider/favs_provider.dart';
 import 'package:dog_share/provider/orders_provider.dart';
-import 'package:dog_share/provider/products.dart';
+import 'package:dog_share/provider/pets_provider.dart';
 import 'package:dog_share/screens/auth/login.dart';
 import 'package:dog_share/screens/auth/sign_up.dart';
 import 'package:dog_share/screens/adminScreens/upload_product_form.dart';
@@ -95,15 +95,15 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               home: Scaffold(
                 body: Center(
-                  child: const CircularProgressIndicator(),
+                  child:  CircularProgressIndicator(),
                 ),
               ),
             );
           } else if (snapshot.hasError) {
             const MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: const Scaffold(
-                body: const Center(
+              home:  Scaffold(
+                body:  Center(
                   child: Text('Error occured'),
                 ),
               ),
@@ -131,8 +131,8 @@ class _MyAppState extends State<MyApp> {
                 brightness: Brightness.light,
                 dividerTheme: const DividerThemeData(
                     color: Colors.black, thickness: 0.5),
-                textTheme: const TextTheme(bodyText1: TextStyle(color: Colors.white))
-                    .apply(bodyColor: Colors.white, displayColor: Colors.white),
+                // textTheme: const TextTheme(bodyText1: TextStyle(color: Colors.white))
+                //     .apply(bodyColor: Colors.white, displayColor: Colors.white),
                 // colorScheme: const ColorScheme(),
               ),
               home: UserState(),

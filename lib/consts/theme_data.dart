@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
-    isDarkTheme = true;
+    isDarkTheme = false;
     return ThemeData(
       scaffoldBackgroundColor:
           isDarkTheme ? Colors.black : Colors.grey.shade300,
